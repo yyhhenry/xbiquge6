@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         小说下载
-// @match        https://www.xbiquge6.com/
-// @version      0.1
+// @namespace    https://www.xbiquge6.com/
+// @version      1.0
 // @description  下载小说
 // @author       yyhhenry
 // @match        https://www.xbiquge6.com/*
