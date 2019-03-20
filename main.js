@@ -9,6 +9,8 @@
 // @downloadURL  https://cdn.jsdelivr.net/gh/yyhhenry/xbiquge6/main.js
 // @supportURL   https://github.com/yyhhenry/xbiquge6
 // ==/UserScript==
+
+
 'use strict';
 function selectText(text) {
 	if (document.body.createTextRange) {
@@ -41,7 +43,8 @@ function 下载单章(url,onfinish){
 }
 function 下载小说(url){
 	下载结果.innerHTML='';
-	下载结果.style.display='none';
+	下载结果.style.height='1px';
+	下载结果.style.overflow='hidden';
 	let 原有标题=document.title;
 	document.title='0%已下载 - '+原有标题;
 	$.get(url,{},function(v){
@@ -61,9 +64,8 @@ function 下载小说(url){
 				document.title=Math.floor(cnt/n*100)+'%已下载 - '+原有标题;
 				if(cnt==n){
 					document.title='正在生成 - '+原有标题;
-					下载结果.style.display='block';
 					selectText(下载结果);
-					alert('下载已完成，按Ctrl+C复制');
+					alert('下载已完成，直接按Ctrl+C复制');
 					document.title='已生成 - '+原有标题;
 				}
 			});
