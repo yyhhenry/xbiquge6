@@ -1,10 +1,12 @@
 // ==UserScript==
 // @name         小说下载
-// @namespace    http://tampermonkey.net/
+// @match        https://www.xbiquge6.com/
 // @version      0.1
 // @description  下载小说
 // @author       yyhhenry
 // @match        https://www.xbiquge6.com/*
+// @updateURL    https://yyhhenry.github.io/xbiquge6/main.js
+// @downloadURL  https://yyhhenry.github.io/xbiquge6/main.js
 // @grant        none
 // ==/UserScript==
 'use strict';
