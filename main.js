@@ -37,7 +37,7 @@ function 下载单章(url,onfinish){
 		doc.innerHTML=v;
 		let 标题=doc.getElementsByClassName('bookname')[0].childNodes[1].innerText;
 		let 正文=doc.getElementsByClassName('box_con')[0].childNodes[7].innerHTML;
-		ans.innerHTML=标题+'<br>'+正文+'<br><br><br>';
+		ans.innerHTML=标题+'<br><br>'+正文+'<br><br><br>';
 		onfinish();
 	},'html');
 }
@@ -51,7 +51,7 @@ function 下载小说(url){
 		let doc=document.createElement('div');
 		doc.innerHTML=v;
 		下载结果.innerHTML+='书名：《'+doc.childNodes[21].content+'》<br><br>';
-		下载结果.innerHTML+='简介： '+doc.childNodes[23].content+'<br><br><br>';
+		下载结果.innerHTML+='简介：'+doc.childNodes[23].content+'<br><br><br>';
 		let list=doc.childNodes[51].childNodes[11].childNodes[1].childNodes[1].childNodes;
 		let n=list.length-4;
 		function 单章地址(i){
@@ -72,11 +72,20 @@ function 下载小说(url){
 		}
 	},'html');
 }
-let 下载按钮=document.createElement('button');
-下载结果.appendChild(下载按钮);
-下载按钮.innerText='下载小说';
-下载按钮.onclick=function(){
-	下载小说(location.href);
+function isInt(x){
+	return parseInt(x).toString()==x;
 }
-
-
+function isNovel(x){
+	let v=x.substring(1,location.pathname.length-1);
+	if(v.lastIndexOf('/')!=-1)return false;
+	let y=v.split('_');
+	return isInt(y[0])&&isInt(y[1]);
+}
+if(isNovel(location.pathname)){
+	let 下载按钮=document.createElement('button');
+	下载结果.appendChild(下载按钮);
+	下载按钮.innerText='下载小说';
+	下载按钮.onclick=function(){
+		下载小说(location.href);
+	}
+}
