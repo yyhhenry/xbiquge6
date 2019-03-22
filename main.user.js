@@ -46,7 +46,7 @@ function 下载小说(url){
 	下载结果.style.height='1px';
 	下载结果.style.overflow='hidden';
 	let 原有标题=document.title;
-	document.title='0%已下载 - '+原有标题;
+	document.title='正在连接 - '+原有标题;
 	$.get(url,{},function(v){
 		let doc=document.createElement('div');
 		doc.innerHTML=v;
@@ -67,6 +67,14 @@ function 下载小说(url){
 					selectText(下载结果);
 					alert('下载已完成，直接按Ctrl+C复制');
 					document.title='已生成 - '+原有标题;
+					
+					let 选中按钮=document.createElement('button');
+					document.getElementById('info').childNodes[1].appendChild(选中按钮);
+					选中按钮.innerText='下载小说';
+					选中按钮.onclick=function(){
+						alert('下载已完成，直接按Ctrl+C复制');
+						selectText(下载结果);
+					}
 				}
 			});
 		}
@@ -83,7 +91,6 @@ function isNovel(x){
 }
 if(isNovel(location.pathname)){
 	let 下载按钮=document.createElement('button');
-	下载按钮.id='下载小说';
 	document.getElementById('info').childNodes[1].appendChild(下载按钮);
 	下载按钮.innerText='下载小说';
 	下载按钮.onclick=function(){
