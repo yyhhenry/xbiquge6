@@ -50,7 +50,7 @@ function 下载小说(url){
 	$.get(url,{},function(v){
 		let doc=document.createElement('div');
 		doc.innerHTML=v;
-		下载结果.innerHTML+='书名：《'+doc.childNodes[21].content+'》<br><br>';
+		下载结果.innerHTML+='书名：《 '+doc.childNodes[21].content+' 》<br><br>';
 		下载结果.innerHTML+='简介：'+doc.childNodes[23].content+'<br><br><br>';
 		let list=doc.childNodes[51].childNodes[11].childNodes[1].childNodes[1].childNodes;
 		let n=list.length-4;
