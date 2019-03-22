@@ -83,7 +83,7 @@ function isNovel(x){
 }
 if(isNovel(location.pathname)){
 	let 下载按钮=document.createElement('button');
-	下载结果.appendChild(下载按钮);
+	document.getElementById('info').childNodes[1].appendChild(下载按钮);
 	下载按钮.innerText='下载小说';
 	下载按钮.onclick=function(){
 		下载小说(location.href);
