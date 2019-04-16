@@ -2,4 +2,4 @@
 
 用于下载xbiquge6.com的小说
 
-[下载脚本](https://raw.githubusercontent.com/yyhhenry/xbiquge6/master/main.user.js)
+[下载脚本](https://yyhhenry.github.io/xbiquge6/main.user.js)

@@ -5,8 +5,8 @@
 // @description  下载小说
 // @author       yyhhenry
 // @match        https://www.xbiquge6.com/*
-// @updateURL    https://raw.githubusercontent.com/yyhhenry/xbiquge6/master/main.user.js
-// @downloadURL  https://raw.githubusercontent.com/yyhhenry/xbiquge6/master/main.user.js
+// @updateURL    https://yyhhenry.github.io/xbiquge6/main.user.js
+// @downloadURL  https://yyhhenry.github.io/xbiquge6/main.user.js
 // @supportURL   https://github.com/yyhhenry/xbiquge6
 // ==/UserScript==
 
