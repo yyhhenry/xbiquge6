@@ -89,6 +89,17 @@ function isNovel(x){
 	let y=v.split('_');
 	return isInt(y[0])&&isInt(y[1]);
 }
+(function(){
+	//页面处理
+	let albl=document.getElementsByTagName('a');
+	for(let i=0;i<albl.length;i++){
+		if(albl[i].href.indexOf('d.taohunbao.com')!=-1){
+			albl[i].parentElement.style.display='none';
+		}
+	}
+	let adbot=document.getElementById('cs_right_bottom');
+	adbot.style.display='none';
+})();
 if(isNovel(location.pathname)){
 	let 下载按钮=document.createElement('button');
 	document.getElementById('info').childNodes[1].appendChild(下载按钮);
