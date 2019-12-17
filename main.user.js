@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         小说下载
 // @namespace    https://www.xsbiquge.com/
-// @version      2.0.1
+// @version      2.1
 // @description  下载小说
 // @author       yyhhenry
 // @match        https://www.xsbiquge.com/*
@@ -89,32 +89,34 @@ function isNovel(x){
 	let y=v.split('_');
 	return isInt(y[0])&&isInt(y[1]);
 }
-window.onload=function(){
-	(function(){
-		//页面处理
+//页面处理
+let delcs=function(){
+	let adbot=document.getElementById('cs_right_bottom');
+	if(adbot==null){
+		setTimeout(delcs,50);
+	}else{
+		adbot.style.display='none';
 		let albl=document.getElementsByTagName('a');
 		for(let i=0;i<albl.length;i++){
 			if(albl[i].href.indexOf('d.taohunbao.com')!=-1){
 				albl[i].parentElement.style.display='none';
 			}
 		}
-		let delcs=function(){
-			let adbot=document.getElementById('cs_right_bottom');
-			if(adbot==null){
-				setTimeout(delcs,50);
-			}else{
-				adbot.style.display='none';
-			}
-		}
-		delcs();
-	})();
-	if(isNovel(location.pathname)){
-		let 下载按钮=document.createElement('button');
-		document.getElementById('info').childNodes[1].appendChild(下载按钮);
-		下载按钮.innerText='下载小说';
-		下载按钮.onclick=function(){
-			$(下载按钮).hide();
-			下载小说(location.href);
-		}
+	}
+}
+delcs();
+let albl=document.getElementsByTagName('a');
+for(let i=0;i<albl.length;i++){
+	if(albl[i].href.indexOf('d.taohunbao.com')!=-1){
+		albl[i].parentElement.style.display='none';
+	}
+}
+if(isNovel(location.pathname)){
+	let 下载按钮=document.createElement('button');
+	document.getElementById('info').childNodes[1].appendChild(下载按钮);
+	下载按钮.innerText='下载小说';
+	下载按钮.onclick=function(){
+		$(下载按钮).hide();
+		下载小说(location.href);
 	}
 }
