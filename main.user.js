@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         小说下载
-// @namespace    https://www.xbiquge6.com/
+// @namespace    https://www.xsbiquge.com/
 // @version      1.0
 // @description  下载小说
 // @author       yyhhenry
-// @match        https://www.xbiquge6.com/*
+// @match        https://www.xsbiquge.com/*
 // @updateURL    https://yyhhenry.github.io/xbiquge6/main.user.js
 // @downloadURL  https://yyhhenry.github.io/xbiquge6/main.user.js
 // @supportURL   https://github.com/yyhhenry/xbiquge6
