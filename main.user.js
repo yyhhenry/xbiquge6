@@ -67,7 +67,6 @@ function 下载小说(url){
 					selectText(下载结果);
 					alert('下载已完成，直接按Ctrl+C复制');
 					document.title='已生成 - '+原有标题;
-					
 					let 选中按钮=document.createElement('button');
 					document.getElementById('info').childNodes[1].appendChild(选中按钮);
 					选中按钮.innerText='下载小说';
@@ -96,18 +95,12 @@ let delcs=function(){
 		setTimeout(delcs,50);
 	}else{
 		adbot.style.display='none';
-		let albl=document.getElementsByTagName('a');
-		for(let i=0;i<albl.length;i++){
-			if(albl[i].href.indexOf('d.taohunbao.com')!=-1){
-				albl[i].parentElement.style.display='none';
-			}
-		}
 	}
 }
 delcs();
 let albl=document.getElementsByTagName('a');
 for(let i=0;i<albl.length;i++){
-	if(albl[i].href.indexOf('d.taohunbao.com')!=-1){
+	if(albl[i].href.indexOf('app.xuxiyx.com')!=-1){
 		albl[i].parentElement.style.display='none';
 	}
 }
