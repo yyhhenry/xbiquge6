@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         小说下载
 // @namespace    https://www.xxbiquge.net/
-// @version      2.1
+// @version      3.1
 // @description  下载小说
 // @author       yyhhenry
 // @match        https://www.xxbiquge.net/*
@@ -12,46 +12,34 @@
 
 
 'use strict';
-function selectText(text) {
-	if (document.body.createTextRange) {
-		let range = document.body.createTextRange();
-		range.moveToElementText(text);
-		range.select();
-	} else if (window.getSelection) {
-		let selection = window.getSelection();
-		let range = document.createRange();
-		range.selectNodeContents(text);
-		selection.removeAllRanges();
-		selection.addRange(range);
-	} else {
-		alert("浏览器不支持选择");
-	}
+let 下载结果;
+function createFileAndDownload(filename,content){
+	let aTag=document.createElement('a');
+	let blob=new Blob([content]);
+	aTag.download=filename;
+	aTag.href=URL.createObjectURL(blob);
+	aTag.click();
 }
-let 下载结果=document.createElement('div');
-document.body.appendChild(下载结果);
 function 下载单章(url,onfinish){
-	let ans=document.createElement('div');
-	下载结果.appendChild(ans);
 	$.get(url,{},function(v){
 		let doc=document.createElement('div');
 		doc.innerHTML=v;
 		let 标题=doc.getElementsByClassName('bookname')[0].childNodes[1].innerText;
 		let 正文=doc.getElementsByClassName('box_con')[0].childNodes[7].innerHTML;
-		ans.innerHTML=标题+'<br><br>'+正文+'<br><br><br>';
+		下载结果+=标题+'\n\n'+正文+'\n\n\n';
 		onfinish();
 	},'html');
 }
 function 下载小说(url){
-	下载结果.innerHTML='';
-	下载结果.style.height='1px';
-	下载结果.style.overflow='hidden';
+	下载结果='';
 	let 原有标题=document.title;
 	document.title='正在连接 - '+原有标题;
 	$.get(url,{},function(v){
 		let doc=document.createElement('div');
 		doc.innerHTML=v;
-		下载结果.innerHTML+='书名：《 '+doc.childNodes[21].content+' 》<br><br>';
-		下载结果.innerHTML+='简介：'+doc.childNodes[23].content+'<br><br><br>';
+		let 书名=doc.childNodes[21].content;
+		下载结果+='书名：《 '+书名+' 》<br><br>';
+		下载结果+='简介：'+doc.childNodes[23].content+'<br><br><br>';
 		let list=doc.childNodes[51].childNodes[11].childNodes[1].childNodes[1].childNodes;
 		let n=list.length-4;
 		function 单章地址(i){
@@ -63,16 +51,13 @@ function 下载小说(url){
 				cnt++;
 				document.title=Math.floor(cnt/n*100)+'%已下载 - '+原有标题;
 				if(cnt==n){
-					document.title='正在生成 - '+原有标题;
-					selectText(下载结果);
-					alert('下载已完成，直接按Ctrl+C复制');
 					document.title='已生成 - '+原有标题;
+					下载结果=下载结果.split('<br>').join('\n').split('&nbsp;').join(' ');
 					let 选中按钮=document.createElement('button');
 					document.getElementById('info').childNodes[1].appendChild(选中按钮);
-					选中按钮.innerText='下载小说';
+					选中按钮.innerText='点击生成文件';
 					选中按钮.onclick=function(){
-						alert('下载已完成，直接按Ctrl+C复制');
-						selectText(下载结果);
+						createFileAndDownload(书名+'.txt',下载结果);
 					}
 				}
 			});
