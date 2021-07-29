@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         小说下载
 // @namespace    https://www.xxbiquge.net/
-// @version      3.1
+// @version      3.2
 // @description  下载小说
 // @author       yyhhenry
 // @match        https://www.xxbiquge.net/*
@@ -12,7 +12,6 @@
 
 
 'use strict';
-let 下载结果;
 function createFileAndDownload(filename,content){
 	let aTag=document.createElement('a');
 	let blob=new Blob([content]);
@@ -26,20 +25,22 @@ function 下载单章(url,onfinish){
 		doc.innerHTML=v;
 		let 标题=doc.getElementsByClassName('bookname')[0].childNodes[1].innerText;
 		let 正文=doc.getElementsByClassName('box_con')[0].childNodes[7].innerHTML;
-		下载结果+=标题+'\n\n'+正文+'\n\n\n';
-		onfinish();
-	},'html');
+		;
+		onfinish(标题+'\n\n'+正文+'\n\n\n');
+	},'html')
 }
 function 下载小说(url){
-	下载结果='';
+	let 下载结果=[];
 	let 原有标题=document.title;
 	document.title='正在连接 - '+原有标题;
 	$.get(url,{},function(v){
 		let doc=document.createElement('div');
 		doc.innerHTML=v;
 		let 书名=doc.childNodes[21].content;
-		下载结果+='书名：《 '+书名+' 》<br><br>';
-		下载结果+='简介：'+doc.childNodes[23].content+'<br><br><br>';
+		let 下载抬头='';
+		下载抬头+='书名：《 '+书名+' 》<br><br>';
+		下载抬头+='简介：'+doc.childNodes[23].content+'<br><br><br>';
+		下载结果[0]=下载抬头;
 		let list=doc.childNodes[51].childNodes[11].childNodes[1].childNodes[1].childNodes;
 		let n=list.length-4;
 		function 单章地址(i){
@@ -47,17 +48,22 @@ function 下载小说(url){
 		}
 		let cnt=0;
 		for(let i=1;i<=n;i++){
-			下载单章(单章地址(i),function(){
+			下载单章(单章地址(i),function(v){
+				下载结果[i]=v;
 				cnt++;
 				document.title=Math.floor(cnt/n*100)+'%已下载 - '+原有标题;
+				let 输出串='';
+				for(let i=0;i<=n;i++){
+					输出串+=下载结果[i];
+				}
 				if(cnt==n){
 					document.title='已生成 - '+原有标题;
-					下载结果=下载结果.split('<br>').join('\n').split('&nbsp;').join(' ');
+					输出串=输出串.split('<br>').join('\n').split('&nbsp;').join(' ');
 					let 选中按钮=document.createElement('button');
 					document.getElementById('info').childNodes[1].appendChild(选中按钮);
 					选中按钮.innerText='点击生成文件';
 					选中按钮.onclick=function(){
-						createFileAndDownload(书名+'.txt',下载结果);
+						createFileAndDownload(书名+'.txt',输出串);
 					}
 				}
 			});
